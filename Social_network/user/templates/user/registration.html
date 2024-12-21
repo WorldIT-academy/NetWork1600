@@ -10,7 +10,13 @@
         {% csrf_token %}
         <p><input type="text" placeholder="Логін" name="username" required></p>
         <p><input type="password" placeholder="Пароль" name="password" required></p>
+        <p><input type="password" name="confirm-password" placeholder="Підтвердження пароля" required></p>
         <button>Надіслати</button>
     </form>
+    {% if show_text_passwords_dont_match %}
+        <p style="color: red;" >Паролі не співпадають</p>
+    {% elif show_text_not_unique_name %}
+        <p style="color: red;">Такий користувач вже існує</p>
+    {% endif %}
 </body>
 </html>
