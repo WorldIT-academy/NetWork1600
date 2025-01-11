@@ -12,5 +12,8 @@
             <p><input type="password" placeholder="Пароль" name="password" required></p>
             <button>Вхід</button>
         </form>
+        {% if user == None %}
+            <p style = "color:red">Логін або пароль некоректні</p>
+        {% endif %}
     </body>
 </html>
