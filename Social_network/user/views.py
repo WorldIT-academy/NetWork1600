@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.models import User
 from django.db.utils import IntegrityError 
 from django.contrib.auth import authenticate, login, logout
+from .models import Profile
 
 
 def render_registration(request):
@@ -66,3 +67,6 @@ def logout_user(request):
     logout(request)
     return redirect('login')
     
+def render_all_profiles(request):
+    all_profiles = Profile.objects.all()
+    return render(request, 'user/all_profiles.html' ,context={'all_profiles':all_profiles})
