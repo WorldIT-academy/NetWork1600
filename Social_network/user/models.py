@@ -7,3 +7,5 @@ class Profile(models.Model):
     about_me = models.TextField()
     avatar = models.ImageField(upload_to= "images/avatars", null= True)
 
+    def __str__(self):
+        return self.user.username
