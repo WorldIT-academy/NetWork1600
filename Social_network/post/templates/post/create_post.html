@@ -1,14 +1,28 @@
+{% load static %}
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'post/css/create_post.css' %}">
     <title>Document</title>
 </head>
 <body>
     <h1> Створити пост </h1>
     <form method="post" enctype="multipart/form-data">
         {% csrf_token %}
-        {{ form.as_p }}
+        <!-- Перебираємо поля форми -->
+        {% for field in form %}
+            <div class = 'field-block'>
+                <!-- Відображаємо лейбли полів -->
+                <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+                <!-- Відображаємо поля -->
+                {{ field }}
+            </div>
+            <div class = 'field-errors'>
+                <!-- Відображаємо помилки полів, якщо необхідно -->
+                {{ field.errors }}
+            </div>
+        {% endfor %}
         <p><button>Створити</button></p>
     </form>
 </body>

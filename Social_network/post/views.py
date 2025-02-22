@@ -20,18 +20,10 @@ def render_create_posts(request):
         form = PostForm(request.POST, request.FILES)
         # Перевірка даних на валідінсть, тобто якщо дані введені коректно та віповідають усім вимогам, що описані у класі PostForm
         if form.is_valid():
-            # Створюємо об'єкт статті
-            post = Post.objects.create(
-                title = form.cleaned_data.get("title"),
-                content = form.cleaned_data.get("content"),
-                image = form.cleaned_data.get("image"),
-                author = Profile.objects.get(user = request.user)
-            )
-            # зв'язуємо теги з моделлю поста
-            post.tags.set(form.cleaned_data.get("tags"))
-            # зберігаємо зміни поста
-            post.save()
-            # перенаправлення на стоірнку усіх постів
+            # Отримуємо проіфль автора на основі поточного користувача
+            author = Profile.objects.get(user = request.user)
+            # Зберагіємо форму (та передаємо автора поста)
+            form.save(author_profile = author)
             return redirect('all_posts')
     else: 
         # Створюємо об'єкт порожньої форми, щоб її відобразити на сторінці
